@@ -188,7 +188,10 @@ export default function Word() {
                   | number
                   | bigint
                   | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | ReactElement<
+                      unknown,
+                      string | JSXElementConstructor<unknown>
+                    >
                   | Iterable<ReactNode>
                   | ReactPortal
                   | Promise<AwaitedReactNode>
