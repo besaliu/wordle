@@ -54,12 +54,14 @@ export default function Word() {
     setWord("BEFORE");
   }, []);
 
-  const countLetterOccurrences = (str: string) => {
-    const counts = {};
+  const countLetters = (str: string): { [key: string]: number } => {
+    const counts: { [key: string]: number } = {}; // Define the type for counts
+
     for (const letter of str) {
-      counts[letter] = (counts[letter] || 0) + 1;
+      counts[letter] = (counts[letter] || 0) + 1; // Count occurrences of each letter
     }
-    return counts;
+
+    return counts; // Return the counts object
   };
 
   const handleKeyDown = async (event: { key: string }) => {
@@ -105,7 +107,7 @@ export default function Word() {
 
         const newFeedback = [...feedback];
         const feedbackForRow = Array(6).fill("");
-        const wordLetterCounts = countLetterOccurrences(word);
+        const wordLetterCounts = countLetters(word);
 
         // First pass: check for correct positions (green)
         for (let i = 0; i < 6; i++) {
