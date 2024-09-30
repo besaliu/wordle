@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, CSSProperties } from "react";
 import io from "socket.io-client";
 
 interface LeaderboardEntry {
@@ -15,6 +15,7 @@ export default function Leaderboard() {
     const socket = io("http://localhost:3001", {
       transports: ["websocket"],
     });
+
     // Listen for leaderboard updates
     socket.on("leaderboard-update", (data: LeaderboardEntry[]) => {
       setLeaderboard(data); // Update state with new leaderboard
@@ -41,7 +42,7 @@ export default function Leaderboard() {
   );
 }
 
-const styles = {
+const styles: { [key: string]: CSSProperties } = {
   container: {
     height: "30vh",
     padding: "1rem",
@@ -50,17 +51,17 @@ const styles = {
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     overflowY: "auto",
     display: "flex",
-    flexDirection: "column" as const,
+    flexDirection: "column",
     justifyContent: "space-between",
   },
   title: {
     fontSize: "1.5rem",
-    textAlign: "center" as const,
+    textAlign: "center",
     color: "#333",
     marginBottom: "1rem",
   },
   list: {
-    listStyleType: "none" as const,
+    listStyleType: "none",
     padding: 0,
     margin: 0,
   },
@@ -69,10 +70,10 @@ const styles = {
     fontSize: "1.2rem",
     borderBottom: "1px solid #ddd",
     display: "flex",
-    justifyContent: "space-between" as const,
+    justifyContent: "space-between",
   },
   name: {
-    fontWeight: "bold" as const,
+    fontWeight: "bold",
   },
   guesses: {
     color: "#888",

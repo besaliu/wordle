@@ -1,6 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
-const checkIfWordExists = async (word) => {
+import {
+  useState,
+  useEffect,
+  AwaitedReactNode,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+} from "react";
+const checkIfWordExists = async (word: string) => {
   try {
     const response = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
@@ -45,7 +54,7 @@ export default function Word() {
     setWord("BEFORE");
   }, []);
 
-  const countLetterOccurrences = (str) => {
+  const countLetterOccurrences = (str: string) => {
     const counts = {};
     for (const letter of str) {
       counts[letter] = (counts[letter] || 0) + 1;
@@ -53,7 +62,7 @@ export default function Word() {
     return counts;
   };
 
-  const handleKeyDown = async (event) => {
+  const handleKeyDown = async (event: { key: string }) => {
     if (isChecking) return;
     if (!gameState) return;
 
@@ -83,7 +92,7 @@ export default function Word() {
         setCurrentCol(currentCol - 1);
       }
     } else if (guessCount < 6 && guessCount < 6 && event.key === "Enter") {
-      if (rows[currentRow].every((letter) => letter !== "")) {
+      if (rows[currentRow].every((letter: string) => letter !== "")) {
         const currentGuess = rows[currentRow].join("");
         setIsChecking(true);
 
@@ -172,32 +181,47 @@ export default function Word() {
                   : "1px solid black",
             }}
           >
-            {row.map((letter, letterIndex) => (
-              <div
-                key={letterIndex}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  border: "1px solid black",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: "2px",
-                  fontSize: "30px",
-                  fontWeight: "bold",
-                  backgroundColor:
-                    feedback[rowIndex][letterIndex] === "green"
-                      ? "#66bb6a"
-                      : feedback[rowIndex][letterIndex] === "yellow"
-                      ? "#ffeb3b"
-                      : feedback[rowIndex][letterIndex] === "gray"
-                      ? "#bdbdbd"
-                      : "transparent",
-                }}
-              >
-                {letter}
-              </div>
-            ))}
+            {row.map(
+              (
+                letter:
+                  | string
+                  | number
+                  | bigint
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  | Promise<AwaitedReactNode>
+                  | null
+                  | undefined,
+                letterIndex: Key | null | undefined
+              ) => (
+                <div
+                  key={letterIndex}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    border: "1px solid black",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "2px",
+                    fontSize: "30px",
+                    fontWeight: "bold",
+                    backgroundColor:
+                      feedback[rowIndex][letterIndex] === "green"
+                        ? "#66bb6a"
+                        : feedback[rowIndex][letterIndex] === "yellow"
+                        ? "#ffeb3b"
+                        : feedback[rowIndex][letterIndex] === "gray"
+                        ? "#bdbdbd"
+                        : "transparent",
+                  }}
+                >
+                  {letter}
+                </div>
+              )
+            )}
           </div>
         ))}
       </div>
