@@ -28,7 +28,7 @@ export default function Leaderboard() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Today's Best:</h1>
+      <h1 style={styles.title}>Todays Best:</h1>
       <ul style={styles.list}>
         {leaderboard.map((entry, index) => (
           <li key={index} style={styles.listItem}>

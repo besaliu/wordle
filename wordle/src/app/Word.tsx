@@ -47,7 +47,7 @@ export default function Word() {
 
   const countLetterOccurrences = (str) => {
     const counts = {};
-    for (let letter of str) {
+    for (const letter of str) {
       counts[letter] = (counts[letter] || 0) + 1;
     }
     return counts;
