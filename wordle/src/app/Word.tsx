@@ -141,7 +141,7 @@ export default function Word() {
         setGuessCount(guessCount + 1);
         if (currentGuess === word) {
           alert("Congratulations! You've guessed the word!");
-          const name = prompt("Enter your name:");
+          const name = prompt("Enter your name:") || "Anonymous";
           setGameState(false);
           await submitGameResult(guessCount + 1, name);
         } else {
