@@ -1,14 +1,6 @@
 "use client";
-import {
-  useState,
-  useEffect,
-  AwaitedReactNode,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-} from "react";
+import { useState, useEffect } from "react";
+
 const checkIfWordExists = async (word: string) => {
   try {
     const response = await fetch(
@@ -20,6 +12,7 @@ const checkIfWordExists = async (word: string) => {
     return false;
   }
 };
+
 const submitGameResult = async (guesses_taken: number, name: string) => {
   try {
     const response = await fetch("http://localhost:3001/store-result", {
@@ -50,6 +43,7 @@ export default function Word() {
   const [currentCol, setCurrentCol] = useState(0);
   const [word, setWord] = useState("");
   const [gameState, setGameState] = useState(true);
+
   useEffect(() => {
     setWord("BEFORE");
   }, []);
@@ -93,14 +87,14 @@ export default function Word() {
         setRows(newRows);
         setCurrentCol(currentCol - 1);
       }
-    } else if (guessCount < 6 && guessCount < 6 && event.key === "Enter") {
+    } else if (guessCount < 6 && event.key === "Enter") {
       if (rows[currentRow].every((letter: string) => letter !== "")) {
         const currentGuess = rows[currentRow].join("");
         setIsChecking(true);
 
         const isValid = await checkIfWordExists(currentGuess);
         if (!isValid) {
-          alert(`invalid word ${currentGuess}`);
+          alert(`Invalid word: ${currentGuess}`);
           setIsChecking(false);
           return;
         }
@@ -185,21 +179,8 @@ export default function Word() {
           >
             {row.map(
               (
-                letter:
-                  | string
-                  | number
-                  | bigint
-                  | boolean
-                  | ReactElement<
-                      unknown,
-                      string | JSXElementConstructor<unknown>
-                    >
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | Promise<AwaitedReactNode>
-                  | null
-                  | undefined,
-                letterIndex: Key | null | undefined
+                letter: string,
+                letterIndex: number // Ensure letterIndex is of type number
               ) => (
                 <div
                   key={letterIndex}
